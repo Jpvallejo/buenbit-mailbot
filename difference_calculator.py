@@ -92,6 +92,7 @@ def getDifferences():
   daiusd = decimal.Decimal(buenbit_req.json()['object']['daiusd']['selling_price'])
   daiars = decimal.Decimal(buenbit_req.json()['object']['daiars']['purchase_price'])
 
+  dolar_buenbit = 1/daiusd*daiars
   santander_price = 0
   bbva_price = 0
   galicia_price = 0
@@ -106,6 +107,7 @@ def getDifferences():
     elif bank_name == "Banco BBVA":
       bbva_price = sell_price
   return {
+    "dolar_buenbit": dolar_buenbit,
     "santander_price": santander_price,
     "bbva_price": bbva_price,
     "galicia_price": galicia_price,
@@ -119,6 +121,8 @@ def getConsoleDifferences():
   return """\
     Diferencia buenbit
 -----------------------------------------------------------------
+        Dolar Buenbit: %.2f
+-----------------------------------------------------------------
         Cotizacion Santander: %.2f
         Diferencia Buenbit - Santander 200usd: %.2f
 -----------------------------------------------------------------
@@ -129,6 +133,7 @@ def getConsoleDifferences():
         Diferencia Buenbit - BBVA 200usd: %.2f
 -----------------------------------------------------------------
     """ % (
+      data["dolar_buenbit"],
       data["santander_price"],
       data["santander_difference"],
       data["galicia_price"],
@@ -160,6 +165,8 @@ def getHtmlDifferences():
         Cotizacion BBVA: <b>%.2f</b>
         Diferencia Buenbit - BBVA 200usd: <b>%.2f</b>
         <hr>
+        <h2> Cotizacion buenbit: <b>%.2f</b> </h2>
+        <hr>
       </body>
     </html>
     """ % (
@@ -168,7 +175,8 @@ def getHtmlDifferences():
       data["galicia_price"],
       data["galicia_difference"],
       data["bbva_price"],
-      data["bbva_difference"]
+      data["bbva_difference"],
+      data["dolar_buenbit"]
       
     )
 
