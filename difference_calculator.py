@@ -106,6 +106,7 @@ def getDifferences():
       galicia_price = sell_price
     elif bank_name == "Banco BBVA":
       bbva_price = sell_price
+  dolares_vender_buenbit_santander = 200* IMP_PAIS * santander_price / daiars * daiusd
   return {
     "dolar_buenbit": dolar_buenbit,
     "santander_price": santander_price,
@@ -113,7 +114,8 @@ def getDifferences():
     "galicia_price": galicia_price,
     "santander_difference": calculateDifference(200,daiars,daiusd,santander_price),
     "bbva_difference": calculateDifference(200,daiars,daiusd,bbva_price),
-    "galicia_difference": calculateDifference(200,daiars,daiusd,galicia_price)
+    "galicia_difference": calculateDifference(200,daiars,daiusd,galicia_price),
+    "vender_santander": dolares_vender_buenbit_santander
   }
 
 def getConsoleDifferences():
@@ -122,6 +124,7 @@ def getConsoleDifferences():
     Diferencia buenbit
 -----------------------------------------------------------------
         Dolar Buenbit: %.2f
+        Dolares a vender para 200 usd Santander: %.2f
 -----------------------------------------------------------------
         Cotizacion Santander: %.2f
         Diferencia Buenbit - Santander 200usd: %.2f
@@ -134,6 +137,7 @@ def getConsoleDifferences():
 -----------------------------------------------------------------
     """ % (
       data["dolar_buenbit"],
+      data["vender_santander"],
       data["santander_price"],
       data["santander_difference"],
       data["galicia_price"],
@@ -166,6 +170,7 @@ def getHtmlDifferences():
         Diferencia Buenbit - BBVA 200usd: <b>%.2f</b>
         <hr>
         <h2> Cotizacion buenbit: <b>%.2f</b> </h2>
+        <h2> Dolares a vender para 200 usd Santander: <b>%.2f</b> </h2>
         <hr>
       </body>
     </html>
@@ -176,7 +181,8 @@ def getHtmlDifferences():
       data["galicia_difference"],
       data["bbva_price"],
       data["bbva_difference"],
-      data["dolar_buenbit"]
+      data["dolar_buenbit"],
+      data["vender_santander"]
       
     )
 
